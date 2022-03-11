@@ -15,7 +15,8 @@ OBJ_OS=
 
 BUILD_DIR=build/
 
-include src/make.mk
+OS=linux
+include src/make.mk 
 
 SOURCES+=$(wildcard src/*.c)
 SOURCES+=$(wildcard src/os/*.c)
