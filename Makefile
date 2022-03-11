@@ -26,13 +26,17 @@ OBJECTS=$(OBJECTS_:.c=.o)
 #	echo "Main"
 #	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(BUILD_DIR)$@
 
-all: build-src
+linux: build-src
 	echo "end"
 	#echo $(SOURCES)
 	#echo $(OBJECTS)
 	$(CC) -shared -Wl,-soname,lib$(PROJECT).so -o lib$(PROJECT).so $(OBJECTS) $(LDFLAGS_LIB) 
 	$(AR) rcv lib$(PROJECT).a $(OBJECTS)
 
+macos: build-src-macos
+	echo "Starting here"
+	$(CC) -v -dynamiclib -undefined suppress -flat_namespace -o lib$(PROJECT).dylib  $(OBJECTS) $(LDFLAGS_LIB) 
+	$(AR) rcv lib$(PROJECT).a $(OBJECTS)
 
 clean:
 	rm -rfv $(BUILD_DIR)/src/*.o
